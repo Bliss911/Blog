@@ -1,61 +1,67 @@
-<form action="<?php echo $SCRIPT_NAME ?>" method="post">
-<table>
-    <tr>
-        <td>Username</td>
-        <td><input type="text" name="username"></td>
-    </tr>
-    <tr>
-        <td>Password</td>
-        <td><input type="password" name="password" id=""></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><input type="submit" value="Login!" name="submit"></td>
-    </tr>
-</table>
-</form>
-
 <?php 
+require("header.php");
 // session_start();
+
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("Location: " . $config_basedir);
+    exit;
+}
 
 require("config.php");
 
-$db = mysqli_connect($dbhost, $dbuser, $dbpassword);
-mysqli_select_db($db, $dbdatabase);
+$username = $password = "";
+$username_err = $password_err = "";
 
 
-// $error = 0;
-if(isset($_POST['submit'])){
-    $username = $_POST['username'];
-    // var_dump($_POST);
-    $password = $_POST['password'];
-
-    $sql = "SELECT * FROM logins WHERE username = $username 
-        AND password = $password;";
-
-
-    $result = mysqli_query($db, $sql);
-    $numrows = mysqli_num_rows($result);
-
-    if($numrows == 1){
-        $row = mysqli_fetch_assoc($result);
-        // session_register("USERNAME");
-        // session_register("USERID");
-
-        $_SESSION['USERNAME'] = $row['username'];
-        $_SESSION['USERID'] = $row['id'];
-        header("Location: " . $config_basedir);
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(empty(trim($_POST["username"])) && empty(trim($_POST["password"]))){
+        $username_err = "Please enter username.";
+        $password_err = "Please enter password.";
     }
     else{
-        header("Location: " . $config_basedir . "/login.php?error=1");
+        $username = trim($_POST["username"]);
+        $password = trim($_POST["password"]);
     }
-}
-else{
-    require("header.php");
 
-    if($_GET['error']){
-        echo "Incorrect login, please try again!";
+    if(empty($username_err) && empty($password_err)){
+        $sql = "SELECT id, username, password FROM logins WHERE username = ?";
+
+        if($stmt = mysqli_prepare($db, $sql)){
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            $param_username = $username;
+
+            if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_store_result($stmt);
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+                        session_start();
+                        $_SESSION["loggedin"] = true;
+                        $_SESSION["id"] = $id;
+                        $_SESSION["username"] = $username;
+                        header("Location: viewentry.php");
+                    }
+                }
+            }
+            else{
+                $username_err = "No account found with that username.";
+            }
+        
+        }
+        else{
+            echo "OOps! Something went wrong. Please try again later.";
+        }
+        mysqli_stmt_close($stmt);
     }
 }
-require("footer.php");
+
+
+mysqli_close($db);
+
 ?>
+
+
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <div></div>
+</form>
