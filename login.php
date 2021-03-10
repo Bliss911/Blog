@@ -15,23 +15,12 @@
 </table>
 </form>
 
-<?php 
-// session_start();
 
-require("config.php");
-
-$db = mysqli_connect($dbhost, $dbuser, $dbpassword);
-mysqli_select_db($db, $dbdatabase);
-
-
-// $error = 0;
-if(isset($_POST['submit'])){
     $username = $_POST['username'];
     // var_dump($_POST);
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM logins WHERE username = $username 
-        AND password = $password;";
+    
 
 
     $result = mysqli_query($db, $sql);
