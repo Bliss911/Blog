@@ -62,6 +62,31 @@ mysqli_close($db);
 ?>
 
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <div></div>
-</form>
+
+<div class="wrapper w-50 mx-auto" id="wrapper">
+    <div class="">
+        <h1 class="display-3">Login</h1>
+        <p class="lead">Enter your Login details</p>
+        <hr class="my-2">
+
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="form-group <?php echo(!empty($username_err)) ? 'has-error' : ''; ?>">
+                <label for="username">Username</label>
+                <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
+                <span class="help-block"><?php echo $username_err; ?></span>
+            </div>
+            <div class="form-group <?php echo(!empty($password_err)) ? 'has-error' : ''; ?>">
+                <label for="password">Password</label>    
+                <input type="password" name="password" class="form-control">
+                <span class="help-block"><?php echo $password_err; ?></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Login" class="btn btn-primary">
+            </div>
+            <p>
+                Don't have an account? <a href="register.php">Register</a>
+            </p>
+        </form>
+        
+    </div>
+</div>
