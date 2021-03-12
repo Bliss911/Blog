@@ -71,7 +71,7 @@ echo "<p>";
 echo nl2br($row['body']);
 echo "</p>";
 
-$commsql = "SELECT * FROM comment WHERE blog_id = $validentry ORDER BY dateposted DESC;";
+$commsql = "SELECT * FROM comments WHERE blog_id = $validentry ORDER BY dateposted DESC;";
 
 $commresult = mysqli_query($db, $commsql);
 
@@ -88,12 +88,12 @@ else{
         echo "<a name='comment" 
             . $i 
             . "'>";
-        echo "<h3>Comment by " 
+        echo "<p><strong>Comment by " 
             . $commrow['name'] 
             . " on " 
             . date("D jS F Y g.iA",
             strtotime($commrow['dateposted'])) 
-            . "</h3>";
+            . "</strong></p>";
         echo $commrow['comment'];
         $i++;
     }

@@ -34,8 +34,8 @@ mysqli_select_db($db, $dbdatabase);
             echo "[<a href='addentry.php'>add entry</a>]";
             echo "[<a href='addcat.php'>add category</a>";
         }
-
         ?>
+        [<a href='logout.php'>logout</a>]
     </div>
     <div id="main">
    
