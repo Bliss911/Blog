@@ -16,7 +16,8 @@ body{
     /* border: 2px solid blue; */
 }
 
-
+#container{ 
+    width: 350px; padding: 50px; }
 
 table{
     /* border: 2px solid blue; */

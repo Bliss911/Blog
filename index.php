@@ -33,7 +33,7 @@ echo "<p>";
 $row_id = (int) $row['id'];
 // var_dump($row_id);
 
-$commsql = "SELECT comment.name FROM comment WHERE blog_id = 1 ORDER BY dateposted;";
+$commsql = "SELECT comments.name FROM comments WHERE blog_id = 1 ORDER BY dateposted;";
 
 $commresult = mysqli_query($db, $commsql);
 
