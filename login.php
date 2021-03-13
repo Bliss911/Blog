@@ -63,7 +63,7 @@ mysqli_close($db);
 
 
 
-<div class="wrapper w-50 mx-auto" id="wrapper">
+    <div class="w-50 mx-auto" id="wrapper">
     <div class="">
         <h1 class="display-3">Login</h1>
         <p class="lead">Enter your Login details</p>
@@ -90,3 +90,4 @@ mysqli_close($db);
         
     </div>
 </div>
+

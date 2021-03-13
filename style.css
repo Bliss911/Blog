@@ -2,7 +2,7 @@ body{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 12px;
     line-height: 1.5em;
-    
+    /* background: #000; */
     margin: 0;
     padding: 0;
     text-align: center;
@@ -24,3 +24,12 @@ table{
     margin-left: 35%;
     text-align: left;
 }
+#wrapper{
+    /* background: #000; */
+    max-width: 40em !important;
+}
+/* @include media-breakpoint-down(md){
+    .wrapper{
+        display: block;
+    }
+} */

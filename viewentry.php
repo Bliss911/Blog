@@ -102,8 +102,8 @@ else{
 
 <h3>Leave a comment</h3>
 
-<form action="<?php echo $SCRIPT_NAME . "?id=" . $validentry; ?>" method="post">
-    <table>
+<form action="<?php echo $SCRIPT_NAME . "?id=" . $validentry; ?>" method="post" class="w-25 mx-auto">
+    <!-- <table>
         <tr>
             <td>Your name</td>
             <td><input type="text" name="name"></td>
@@ -116,7 +116,21 @@ else{
             <td></td>
             <td><input type="submit" value="Add comment" name="submit"></td>
         </tr>
-    </table>
+    </table> -->
+
+    
+  <div class="mb-3 d-flex justify-content-between">
+    <label for="exampleInputEmail1" class="form-label">Email</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" cols="35" rows="10" style="width: 275px;">
+    
+  </div>
+  <div class="mb-3 d-flex justify-content-between">
+    <label for="commentbox" class="form-label text-top">comment</label>
+    <textarea name="commentbox" id="commentbox" cols="35" rows="10"></textarea>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+
     
 
 </form>
