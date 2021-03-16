@@ -1,6 +1,6 @@
 <?php
 
-require("header.php");
+require_once("header.php");
 
 $sql = "SELECT entries.*, categories.category FROM entries, categories
     WHERE entries.cat_id = categories.id
@@ -18,7 +18,7 @@ echo "<i>In <a href='viewcat.php?id="
     ."'>" 
     . $row['category'] 
     ."</a> - Posted on " 
-    . date("D js F Y g.iA", strtotime($row['dateposted'])) 
+    . date("F d, Y h:i:s", strtotime($row['dateposted'])) 
     ."</i>";
 
 if(isset($_SESSION['USERNAME']) == TRUE){
@@ -45,13 +45,13 @@ if($numrows_comm == 0){
 else{
     echo "(<strong>" . $numrows_comm . "</strong>) comments: ";
     $i = 1;
-    while($commrow = mysqli_fetch_assoc($commresult)){
-        echo "<a href='viewentry.php?id=" . $row['id']
-        ."#comment" . $i
-        ."'> "
-        . $commrow['name'] . ", </a> ";
-        $i++;
-    }
+    // while($commrow = mysqli_fetch_assoc($commresult)){
+    //     echo "<a href='viewentry.php?id=" . $row['id']
+    //     ."#comment" . $i
+    //     ."'> "
+    //     . $commrow['name'] . ", </a> ";
+    //     $i++;
+    // }
 }
 echo "</p>";
 $prevsql = "SELECT entries.*, categories.category FROM entries, categories
@@ -67,11 +67,11 @@ if($numrows_prev == 0){
 else {
     echo "<ul>";
 
-    while ($prevrow = mysqli_fetch_assoc($prevresult)){
-        echo "<li><a href='viewentry.php?id="
-        . $prevrow['id'] . "'>" . $prevrow ['subject']
-        . "</a></li>";
-    }
+    // while ($prevrow = mysqli_fetch_assoc($prevresult)){
+    //     echo "<li><a href='viewentry.php?id="
+    //     . $prevrow['id'] . "'>" . $prevrow ['subject']
+    //     . "</a></li>";
+    // }
 }
 
 echo "</ul>";

@@ -1,12 +1,21 @@
 <?php 
-require("header.php");
 // session_start();
 
+
+
+// var_dump(session_);
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("Location: " . $config_basedir);
+    $username = $_SESSION["username"];
+    echo "<center><b>You are already logged in</b></center>";
+    echo "[<a href='logout.php'>logout</a>]";
+    // header("Location: viewentry.php");
     exit;
 }
-
+?>
+<?php
+// session_unset();
+// session_destroy();
+require("header.php");
 require("config.php");
 
 $username = $password = "";
@@ -14,34 +23,57 @@ $username_err = $password_err = "";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty(trim($_POST["username"])) && empty(trim($_POST["password"]))){
+    // var_dump($_SERVER);
+    if(empty(trim($_POST["username"]))){
         $username_err = "Please enter username.";
-        $password_err = "Please enter password.";
+        // $password_err = "Please enter password.";
     }
     else{
         $username = trim($_POST["username"]);
+        // $password = trim($_POST["password"]);
+    }
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter your password.";
+        var_dump($password_err);
+    }else{
         $password = trim($_POST["password"]);
     }
-
+    // var_dump($username_err);
+    // session_start();
     if(empty($username_err) && empty($password_err)){
         $sql = "SELECT id, username, password FROM logins WHERE username = ?";
-
+        // var_dump($username_err);
+        // var_dump($password_err);
         if($stmt = mysqli_prepare($db, $sql)){
             mysqli_stmt_bind_param($stmt, "s", $param_username);
-            
+            // var_dump($stmt);
             $param_username = $username;
-
+            var_dump($param_username);
             if(mysqli_stmt_execute($stmt)){
                 mysqli_stmt_store_result($stmt);
-                if(mysqli_stmt_num_rows($stmt) == 1){
+                // var_dump($stmt);
+                var_dump(mysqli_stmt_num_rows($stmt));
+                
+                var_dump($_SESSION);
+                
+                if(mysqli_stmt_num_rows($stmt) >= 1){
+                    var_dump($stmt);
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                     if(mysqli_stmt_fetch($stmt)){
                         session_start();
                         $_SESSION["loggedin"] = true;
                         $_SESSION["id"] = $id;
                         $_SESSION["username"] = $username;
+                        
                         header("Location: viewentry.php");
+                        
+                    }else{
+                        //Display an error message if password is not valid
+                        $password_err = "The password you entered was not valid.";
+                        var_dump($password_err);
                     }
+                }else{
+                    $username_err = "<b>No record found</b>";
                 }
             }
             else{

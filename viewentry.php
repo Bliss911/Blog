@@ -103,20 +103,7 @@ else{
 <h3>Leave a comment</h3>
 
 <form action="<?php echo $SCRIPT_NAME . "?id=" . $validentry; ?>" method="post" class="w-25 mx-auto">
-    <!-- <table>
-        <tr>
-            <td>Your name</td>
-            <td><input type="text" name="name"></td>
-        </tr>
-        <tr>
-            <td>Comment</td>
-            <td><textarea name="comment" rows="10" cols="50"></textarea></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Add comment" name="submit"></td>
-        </tr>
-    </table> -->
+    
 
     
   <div class="mb-3 d-flex justify-content-between">

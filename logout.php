@@ -5,7 +5,7 @@ session_destroy();
 
 require("config.php");
 
-header("Location: " . $config_basedir);
+header("Location: " .$config_basedir);
 
 ?>
 

@@ -33,10 +33,10 @@ else{
             <select name="cat" id="">
                 <?php
                 $catsql = "SELECT * FROM categories;";
-                while($catres = mysqli_query($db, $catres)){
-                    echo "<option value='" . $catrow['id'] . "'>" . $catrow['cat'] . "</option>";
+                // while($catres = mysqli_query($db, $catres)){
+                //     echo "<option value='" . $catrow['id'] . "'>" . $catrow['cat'] . "</option>";
                     
-                }
+                // }
                 ?>
             </select>
         </td>
