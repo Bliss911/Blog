@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 require("config.php");
 
 // $db = mysqli_connect($dbhost, $dbuser, $dbpassword);
@@ -22,23 +22,24 @@ require("config.php");
         [<a href="viewcat.php">categories</a>]
 
         <?php
+        // session_start();
         // var_dump($_SESSION);#
     //    require("login.php");
         if(isset($_SESSION["username"])){
-            
-            echo "[<a href='logout.php'>logout</a>]";
+            // var_dump($_SESSION["username"]);
+            if("[<a href='login.php'>login</a>]"){
+                echo "[<a href='logout.php'>logout</a>]";    
+                echo "----";
+                echo "[<a href='addentry.php'>add entry</a>]";
+                echo "[<a href='addcat.php'>add category</a>]";
+            }            
         }
         else{
             // var_dump($_SESSION);
             echo "[<a href='login.php'>login</a>]";
         }
 
-        if(isset($_SESSION["username"])){
-            echo "----";
-            echo "[<a href='addentry.php'>add entry</a>]";
-            echo "[<a href='addcat.php'>add category</a>]";
-        }
-        // session_unset();
+        
         ?>
         <!-- [<a href='logout.php'>logout</a>] -->
     </div>

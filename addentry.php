@@ -1,22 +1,35 @@
 <?php
 require("config.php");
 
-$db = mysqli_connect($dbhost, $dbuser, $dbpassword);
-mysqli_select_db($db, $dbdatabase);
+// $db = mysqli_connect($dbhost, $dbuser, $dbpassword);
+// mysqli_select_db($db, $dbdatabase);
 
-if(isset($_SESSION['USERNAME']) == FALSE){
+if(isset($_SESSION["username"]) == FALSE){
     header("Location: " . $config_basedir);
 }
 
-$category = $_POST['category'];
-$subject = $_POST['subject'];
-$postbody = $_POST['body'];
+$category = $_POST["category"];
+$subject = $_POST["subject"];
+$postbody = $_POST["body"];
 
-if($_POST['submit']){
+if(isset($_POST["submit"])){
     $sql = "INSERT INTO entries(cat_id, dateposted, subject, body)
-        VALUES($category, NOW(), $subject, $postbody);";
+        VALUES(?, ?, ?, ?);";
+        if($stmt = mysqli_prepare($db, $sql)){
+            mysqli_stmt_bind_param($stmt, "isss", $param_cat_id, $param_dateposted, $param_subject, $param_body);
+            $param_cat_id = $category;
+            $param_dateposted = date;
+            $param_subject = $subject;
+            $param_body = $postbody;
+            if (mysqli_stmt_execute($stmt)){
+                mysqli_stmt_store_result($stmt);
+            }
+            
+        }
+        
 
-    mysqli_query($db, $sql);
+    
+    mysqli_stmt_store_result($stmt);
     header("Location: " .$config_basedir);
 }
 else{

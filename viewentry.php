@@ -1,5 +1,9 @@
 <?php
 require("config.php");
+require("header.php");
+// if(isset($_SESSION["username"]) && "[<a href='login.php'>login</a>]"){
+//     echo "[<a href='logout.php'>logout</a>]";
+// }
 $error = 0;
 if(isset($_GET['id']) == TRUE){
 
@@ -33,7 +37,7 @@ if(isset($_POST['submit']) != NULL){
 else{
     //code will go here
 }
-require("header.php");
+
 
 
 $sql = "";
@@ -98,6 +102,7 @@ else{
         $i++;
     }
 }
+
 ?>
 
 <h3>Leave a comment</h3>

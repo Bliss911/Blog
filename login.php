@@ -13,8 +13,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 }
 ?>
 <?php
-// session_unset();
-// session_destroy();
+
 require("header.php");
 require("config.php");
 
@@ -42,8 +41,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // session_start();
     if(empty($username_err) && empty($password_err)){
         $sql = "SELECT id, username, password FROM logins WHERE username = ?";
-        // var_dump($username_err);
-        // var_dump($password_err);
         if($stmt = mysqli_prepare($db, $sql)){
             mysqli_stmt_bind_param($stmt, "s", $param_username);
             // var_dump($stmt);
@@ -54,9 +51,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // var_dump($stmt);
                 var_dump(mysqli_stmt_num_rows($stmt));
                 
-                var_dump($_SESSION);
+                // var_dump($_SESSION);
                 
-                if(mysqli_stmt_num_rows($stmt) >= 1){
+                if(mysqli_stmt_num_rows($stmt) == 1){
                     var_dump($stmt);
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                     if(mysqli_stmt_fetch($stmt)){

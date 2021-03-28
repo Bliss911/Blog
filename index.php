@@ -1,6 +1,8 @@
 <?php
 
 require_once("header.php");
+require("config.php");
+
 
 $sql = "SELECT entries.*, categories.category FROM entries, categories
     WHERE entries.cat_id = categories.id
